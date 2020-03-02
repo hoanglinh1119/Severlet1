@@ -24,7 +24,7 @@
     </c:if>
 </p>
 <p>
-    <a href="/students">Back to customer list</a>
+    <a href="/students">Back to student list</a>
 </p>
 <form method="post">
     <fieldset>
@@ -35,8 +35,12 @@
                 <td><input type="text" name="name" id="name"></td>
             </tr>
             <tr>
+                <td>Student ID: </td>
+                <td><input type="text" name="id" id="id"></td>
+            </tr>
+            <tr>
                 <td>Gender</td>
-                <td><input type="text" name=" gender" id="gender"></td>
+                <td><input type="text" name="gender" id="gender"></td>
             </tr>
             <tr>
                 <td>Email: </td>
@@ -52,7 +56,7 @@
             </tr>
             <tr>
                 <td></td>
-                <td><input type="submit" value="Create customer"></td>
+                <td><input type="submit" value="Create Student"></td>
             </tr>
         </table>
     </fieldset>

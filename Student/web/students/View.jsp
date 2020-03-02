@@ -8,9 +8,34 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>View student</title>
 </head>
 <body>
-
+<h1>student details</h1>
+<p>
+    <a href="/students">Back to student list</a>
+</p>
+<table>
+    <tr>
+        <td>Name: </td>
+        <td>${requestScope["student"].getName()}</td>
+    </tr>
+    <tr>
+        <td>Gender: </td>
+        <td>${requestScope["student"].getGender()}</td>
+    </tr>
+    <tr>
+        <td>Number Phone: </td>
+        <td>${requestScope["student"].getNumberPhone()}</td>
+    </tr>
+    <tr>
+        <td>Email: </td>
+        <td>${requestScope["student"].getEmail()}</td>
+    </tr>
+    <tr>
+        <td>Address: </td>
+        <td>${requestScope["student"].getAddress()}</td>
+    </tr>
+</table>
 </body>
 </html>

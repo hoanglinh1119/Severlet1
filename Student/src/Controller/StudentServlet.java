@@ -22,9 +22,9 @@ public class StudentServlet extends HttpServlet {
         switch(action){
             case "create": createStudent(request,response);
                break;
-            case "edit":
+            case "edit": editStudent(request,response);
                 break;
-            case "delete":
+            case "delete": deleteStudent(request,response);
                 break;
             default:  break;
         }
@@ -36,9 +36,12 @@ public class StudentServlet extends HttpServlet {
     switch (action){
         case "create": showCreateForm(request,response);
             break;
-        case "edit": break;
-        case "delete":break;
-        case "view":break;
+        case "edit":showEditForm(request,response);
+            break;
+        case "delete":showdeleteStudent(response,request);
+            break;
+        case "view": viewStudent(response,request);
+            break;
         default: listStudent(request,response);
             break;
     }
@@ -69,17 +72,91 @@ public class StudentServlet extends HttpServlet {
         String email=request.getParameter("email");
         String number=request.getParameter("number");
         String address=request.getParameter("address");
-        int id=(int)(Math.random())*10000;
+        int id=Integer.parseInt(request.getParameter("id"));
 
         Student student=new Student(id,name,gender,email,number,address);
         this.studentService.save(student);
         RequestDispatcher dispatcher=request.getRequestDispatcher("students/Create.jsp");
+        request.setAttribute("message","new student was created!!");
         try {
             dispatcher.forward(request,response);
         } catch (ServletException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+    private void showEditForm(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
+        int id=Integer.parseInt(request.getParameter("id"));
+        Student student=this.studentService.findId(id);
+        this.studentService.findId(id);
+        RequestDispatcher dispatcher;
+        if (student==null){
+            dispatcher=request.getRequestDispatcher("error_404.jsp");
+        }else {
+            dispatcher=request.getRequestDispatcher("students/Edit.jsp");
+            dispatcher.forward(request,response);
+
+        }
+    }
+    private void editStudent(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
+        int id=Integer.parseInt(request.getParameter("id"));
+        String name=request.getParameter("name");
+        String gender=request.getParameter("gender");
+        String email=request.getParameter("email");
+        String number=request.getParameter("number");
+        String address=request.getParameter("address");
+        Student student=this.studentService.findId(id);
+        RequestDispatcher dispatcher;
+        if (student==null){
+            dispatcher=request.getRequestDispatcher("error_404.jsp");
+        }else {
+            student.setId(id);
+            student.setName(name);
+            student.setGender(gender);
+            student.setEmail(email);
+            student.setNumberPhone(number);
+            student.setAddress(address);
+            this.studentService.update(id,student);
+            request.setAttribute("student",student);
+            request.setAttribute("massage","student information was updated!!");
+            dispatcher=request.getRequestDispatcher("students/Edit.jsp");
+            dispatcher.forward(request,response);
+        }
+    }
+    private void showdeleteStudent(HttpServletResponse response,HttpServletRequest request) throws ServletException, IOException {
+        int id=Integer.parseInt(request.getParameter("id"));
+        Student student=this.studentService.findId(id);
+        RequestDispatcher dispatcher;
+        if(student==null){
+            dispatcher=request.getRequestDispatcher("error_404.jsp");
+        }else {
+            request.setAttribute("student", student);
+            dispatcher=request.getRequestDispatcher("students/Delete.jsp");
+             dispatcher.forward(request,response);
+        }
+    }
+    private void deleteStudent(HttpServletRequest request,HttpServletResponse response) throws IOException {
+        int id=Integer.parseInt(request.getParameter("id"));
+        Student student=this.studentService.findId(id);
+        RequestDispatcher dispatcher;
+        if (student==null){
+            dispatcher=request.getRequestDispatcher("error_404.jsp");
+        }else {
+            this.studentService.remove(id);
+            response.sendRedirect("/students");
+        }
+    }
+    private void viewStudent(HttpServletResponse response,HttpServletRequest request) throws ServletException, IOException {
+        int id=Integer.parseInt(request.getParameter("id"));
+        Student student=this.studentService.findId(id);
+        RequestDispatcher dispatcher;
+        if (student==null){
+            dispatcher=request.getRequestDispatcher("error_404.jsp");
+        }else {
+            request.setAttribute("student",student);
+            dispatcher=request.getRequestDispatcher("students/View.jsp");
+            dispatcher.forward(request,response);
         }
     }
 }

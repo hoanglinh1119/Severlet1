@@ -19,13 +19,6 @@ public Student(int id, String name, String gender, String email, String numberPh
         this.address=address;
 
     }
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
 
     public int getId() {
         return id;
@@ -42,11 +35,13 @@ public Student(int id, String name, String gender, String email, String numberPh
     public void setName(String name) {
         this.name = name;
     }
+    public String getGender() {
+        return gender;
+    }
 
-
-
-
-
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
     public String getEmail() {
         return email;
     }
