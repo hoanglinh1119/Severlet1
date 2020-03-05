@@ -1,11 +1,11 @@
 <%--
   Created by IntelliJ IDEA.
   User: Microsoft Windows
-  Date: 03/03/2020
-  Time: 1:57 PM
+  Date: 04/03/2020
+  Time: 10:50 PM
   To change this template use File | Settings | File Templates.
 --%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -30,7 +30,7 @@
             <th>Edit</th>
             <th>Delete</th>
         </tr>
-        <c:forEach var="user" items="${userList}">
+        <c:forEach var="user" items="${listSearch}">
             <tr>
                 <td><c:out value="${user.id}"/></td>
                 <td><c:out value="${user.name}"/></td>
