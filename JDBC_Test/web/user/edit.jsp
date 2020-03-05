@@ -13,8 +13,8 @@
 </head>
 <body>
 
-    <h1>User Management</h1>
-    <h2>
+    <h1 align="center">User Management</h1>
+    <h2 align="center">
         <a href="users?action=users">List All Users</a>
     </h2>
 

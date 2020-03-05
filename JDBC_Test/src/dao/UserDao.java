@@ -17,6 +17,7 @@ public class UserDao implements IUserDao {
     private static final String Select_All_Users="select*from users";
     private static final String Delete_Users="delete from users where id=?";
     private static final String Update_Users="update users set userName=?,email=?,country=? where id=?";
+    private static final String Sort_By_Name="select * from users order by userName";
 
     public UserDao(){}
     protected Connection getConnection(){
@@ -107,7 +108,28 @@ public class UserDao implements IUserDao {
             }
         return listSearch;
     }
+
     @Override
+    public List<User> sortByName() {
+        List<User> userList = new ArrayList<>();
+        try {
+            Connection connection = getConnection();
+            PreparedStatement ps = connection.prepareStatement(Sort_By_Name);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String name = rs.getString("userName");
+                String email = rs.getString("email");
+                String country = rs.getString("country");
+                userList.add(new User(id, name, email, country));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return userList;
+    }
+
+        @Override
     public boolean deleteUser(int id) {
         boolean rowDelete = false;
         try{
